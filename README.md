@@ -9,7 +9,7 @@ Elastic Stack is a collection of different open-source components that work toge
 
 Elastic Stack contain four key open-source components that works together.
 
-![Elastic Stack Components](assets/images/ff.png)
+![Elastic Stack Components](assets/images/Elastic_components_image.png)
 
 1. Elasticsearch
 The first component, Elasticsearch, is a full-text search and analytics engine for JSON-formatted documents. It stores, analyzes, and correlates data and supports a RESTful API for interacting with it.
@@ -92,7 +92,7 @@ For the foloowing questions I didn't used the **Add filter** button, I searched 
 
 For this question, I clicked on **Analytics**, clicked on **Discover** and in the Discover tab in clicked on **Show dates** on the top right to select the date from 31st December 2021 to 2nd Feb 2022 in the absolute categorie. The application return 2861 hits.
 
-![Discover - Date filter](assets/images/ff.png)
+![Discover - Date filter](assets/images/discovery1.png)
 
 **Response**: 2861
 
@@ -139,7 +139,7 @@ I wrote the following query in the search bar:
 Source_ip :  238.163.231.224 AND NOT (source_state:"New York")
 ```
 
-![Top IP with Ip address excluding New York](assets/images/ff.png)
+![Top IP with Ip address excluding New York](assets/images/top_ip_exclude_new_york.png)
 
 **Response**: 48
 
