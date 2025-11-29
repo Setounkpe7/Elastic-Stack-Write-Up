@@ -1,8 +1,10 @@
 # Elastic Stack: The Basics | TryHackMe WriteUp
+
 Elastic Stack(ELK) is a powerful tool that help collect, store, analyze, search and visualize large size of data. In this room, we'll go through an overview of Elastic Stack functionalities, develop searching, investigation and visualization skills in ELK with practical labs.
 
 
 ## Task 2: Elastic Stack Overview
+
 Elastic Stack (ELK) was originally developed to store, search, and visualize large amounts of data. Organizations used it to monitor application performance and perform searches on large datasets. Over time, its features made it popular in security operations as well. Now, many SOC teams use ELK almost as a SIEM solution. 
 
 Elastic Stack is a collection of different open-source components that work together to collect data from any source, store and search it, and visualize it in real time. 
@@ -12,26 +14,32 @@ Elastic Stack contain four key open-source components that works together.
 ![Elastic Stack Components](assets/images/Elastic_components_image.png)
 
 1. Elasticsearch
+
 The first component, Elasticsearch, is a full-text search and analytics engine for JSON-formatted documents. It stores, analyzes, and correlates data and supports a RESTful API for interacting with it.
 
 2. Logstash
-Logstash is a data processing engine that takes data from different sources, filters it, or normalizes it, and then sends it to the destination, which could be Kibana or a listening port. A Logstash configuration file is divided into three parts, as shown below.
 
-    -The Input part is where the user defines the source from which the data is being ingested.
-    -The Filter part is where the user specifies the filter options to normalize the log ingested above. 
-    -The Output part is where the user wants the filtered data to be sent. It can be a listening port, Kibana Interface, Elasticsearch database, or file.
+Logstash is a data processing engine that takes data from different sources, filters it, or normalizes it, and then sends it to the destination, which could be Kibana or a listening port. A Logstash configuration file is divided into three parts, as shown below.
+   - The Input part is where the user defines the source from which the data is being ingested.
+   - The Filter part is where the user specifies the filter options to normalize the log ingested above. 
+   - The Output part is where the user wants the filtered data to be sent. It can be a listening port, Kibana Interface, Elasticsearch database, or file.
 
 3. Beats
+
 Beats are host-based agents known as data-shippers that ship/transfer data from the endpoints to Elasticsearch. Each beat is a single-purpose agent that sends specific data to Elasticsearch. All available beats are shown below. 
 
 4. Kibana
+
 Kibana is a web-based data visualization tool that works with Elasticsearch to analyze, investigate, and visualize data streams in real time. It allows users to create multiple visualizations and dashboards for better visibility. There is more on Kibana in the following tasks.
 
 Now let see how they work together:
 
 - Beats collect data from multiple agents. For example, Winlogbeat collects Windows event logs, and Packetbeat collects network traffic flows.
+
 - Logstash collects data from beats, ports, or files, parses/normalizes it into field value pairs, and stores them into Elasticsearch.
+
 - Elasticsearch acts as a database used to search and analyze data.
+
 - Kibana is responsible for displaying and visualizing the data stored in Elasticsearch. The data stored in Elasticsearch can easily be shaped into different visualizations, time charts, infographics, etc., using Kibana.
 
 ---
@@ -48,38 +56,49 @@ Answer the questions below.
 
 
 ## Task 3: Lab connection
+
 In this task, we connect to a virtual machine, own by TryHackMe, which will give us access to an ELK instance for futur labs. Once it's done we click on complete.
 
 ## Task 4: Discover Tab
+
 The Discover tab shows the ingested logs, the search bar, normalized fields, and more. Analysts can search for the logs, investigate anomalies, and apply filters based on search terms and time periods.
 
 Here are the following elements of the Discover tab:
 
 1. Logs
+
 Each row shows a single log containing information about the event, along with the fields and values found in that log.
 
 2. Fields Pane
+
 The left panel of the interface shows the list of fields parsed from the logs. We can click on any field to add it to the filter or remove it from the search.
 
 3. Index Pattern
+
 Each type of log is stored in a different index pattern. We can select the index pattern from which we need the logs. For example, for VPN logs, we would need to select the index pattern in which VPN logs are stored.
 
 4. Search Bar
+
 It is a place where the user adds search queries and applies filters to narrow down the results. In the next task, we will learn how to perform searches through queries.
 
 5. Time Filter
+
 We can narrow down results based on any specific time duration. 
 
 6. Time Interval
+
 This chart shows the event counts over time.
 
 7. TOP Bar
+
 This bar contains various options to save the search, open the saved searches, share or save the search, etc.
 
 8. Discover Tab
+
 This is the main workspace in Kibana for exploring, searching, and analyzing raw data.
 
 9. Add Filter
+
 We can apply filters to specific fields to narrow down results, rather than manually typing entire queries.
 
 ---
@@ -104,7 +123,7 @@ By clicking on "Source_ip" in the tab available fields on the left of the Discov
 
 **Question**: Which user is responsible for the overall maximum traffic?
 
-We do the same this as the previous question this time with the field UserName.
+We do the same as the previous question this time with the field UserName.
 
 **Response**: James
 
@@ -151,6 +170,7 @@ Source_ip :  238.163.231.224 AND NOT (source_state:"New York")
 
 
 ## Task 5: KQL Overview
+
 The Kibana Query Language (KQL) is a simple, text-based query language used within Kibana to filter and search data stored in Elasticsearch. It provides a user-friendly way to interact with your data, focusing specifically on filtering and finding relevant documents.
 
 With KQL, we can search for the logs in two different ways.
@@ -159,6 +179,7 @@ With KQL, we can search for the logs in two different ways.
 - Field-based search
 
 ### Free text Search
+
 Free text search allows users to search for logs based on text only. That means a simple search of the term security will return all the documents that contain this term, irrespective of the field. For example, if i search "United States" in the search bar it return 2304 hits with "United States" in any of the field.
 
 ![Search Text](assets/images/search_text.png)
@@ -168,6 +189,7 @@ KQL also allows user to use logical operators like AND, OR, NOT.
 
 
 ### Field-based search
+
 In the Field-based search, we will provide the field name and the value we are looking for in the logs. This search has a special syntax as `Field: Value`. It uses a colon as a separator between the field and the value. The following query ask to Kibana to find all logs with "UserName" James and "Source_ip" 151.164.74.14.
 
 ```bash
